@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
 import { Button, Input } from '@material-ui/core'
 import ImageUpload from './upload/ImageUpload'
-// import InstagramEmbed from 'react-instagram-embed'
+import InstagramEmbed from 'react-instagram-embed'
 
 function getModalStyle() {
   const top = 50
@@ -205,7 +205,7 @@ function App() {
         </div>
 
         <div className='app_postsRight'>
-          {/* <InstagramEmbed
+          <InstagramEmbed
             url='https://www.instagram.com/p/CO5d9M5glvy/?utm_source=ig_web_copy_link'
             clientAccessToken='1244303876015113|5d80273fad83c0c31d5d54b3e91a30fe'
             maxWidth={320}
@@ -216,7 +216,7 @@ function App() {
             onSuccess={() => {}}
             onAfterRender={() => {}}
             onFailure={() => {}}
-          /> */}
+          />
           <h3>this is suppose to be an instagram embed</h3>
         </div>
       </div>
