@@ -217,7 +217,7 @@ function App() {
             onAfterRender={() => {}}
             onFailure={() => {}}
           />
-          <h3>this is suppose to be an instagram embed</h3>
+          {/* <h3>this is suppose to be an instagram embed</h3> */}
         </div>
       </div>
 
