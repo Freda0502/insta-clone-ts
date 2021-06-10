@@ -35,17 +35,15 @@ const fakePost = [
   },
 ]
 
-//should uncomment this block, working on it
+describe('my function or component', () => {
+  test('it should display a post', async () => {
+    //  const mockedFirebase = mocked(firebase.get)
+    //  mockedFirebase.mockResolvedValue({ data: fakePost });
 
-// describe('my function or component', () => {
-//   test('it should display a post', async () => {
-//   //  const mockedFirebase = mocked(firebase.get)
-//   //  mockedFirebase.mockResolvedValue({ data: fakePost });
-
-//   const {debug}=render(<Post />);
-//   debug()
-//   }
-// }))
+    const { debug } = render(<Post {...fakePost[0]} />)
+    debug()
+  })
+})
 
 // expect(screen.getByText(fakePost.caption)).toBeInTheDocument();
 
