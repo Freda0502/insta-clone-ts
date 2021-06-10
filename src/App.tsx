@@ -8,6 +8,9 @@ import Modal from '@material-ui/core/Modal'
 import { Button, Input } from '@material-ui/core'
 import ImageUpload from './upload/ImageUpload'
 import InstagramEmbed from 'react-instagram-embed'
+import ModalComponenet from './modal_component'
+import SignInModalComponenet from './signInModalComponent'
+import SignUpModalComponenet from './signUpModalComponent'
 
 function getModalStyle() {
   const top = 50
@@ -31,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-interface Post {
+interface PostProps {
   id: string
   post: firebase.firestore.DocumentData
 }
@@ -39,9 +42,10 @@ interface Post {
 function App() {
   const classes = useStyles()
   const [modalStyle] = useState(getModalStyle)
-  const [posts, setPosts] = useState<Post[]>([])
+  const [posts, setPosts] = useState<PostProps[]>([])
   const [open, setOpen] = useState(false)
   const [openSignIn, setOpenSignIn] = useState(false)
+  const [openSignUp, setOpenSignUp] = useState(false)
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -92,7 +96,7 @@ function App() {
         })
       })
       .catch((error) => alert(error.message))
-    setOpen(false)
+    setOpenSignUp(false)
   }
 
   const signIn = (event: React.FormEvent<HTMLFormElement>) => {
@@ -103,18 +107,21 @@ function App() {
     setOpenSignIn(false)
   }
 
+  const handleCloseModal = () => {
+    setOpenSignIn(false)
+    setOpenSignUp(false)
+  }
+
   return (
     <div className='app'>
-      <Modal open={open} onClose={() => setOpen(false)}>
+      {/* <Modal open={open} onClose={() => setOpen(false)}>
         <div style={modalStyle} className={classes.paper}>
           <form className='app__signUp' onSubmit={signUp}>
-            {/* <center> */}
             <img
               className='app__headerimage'
               alt='abc'
               src='https://i.ibb.co/kmrPzLL/Screen-Shot-2021-05-25-at-10-42-21-AM.png'
             ></img>
-            {/* </center> */}
             <Input
               type='text'
               placeholder='username'
@@ -142,17 +149,24 @@ function App() {
             <Button type='submit'>Sign Up</Button>
           </form>
         </div>
-      </Modal>
-      <Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
+      </Modal> */}
+
+      <SignUpModalComponenet
+        class_name='app__signUp'
+        submit={signUp}
+        text='Sign Up'
+        isOpen={openSignUp}
+        onClose={handleCloseModal}
+      />
+
+      {/* <Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
         <div style={modalStyle} className={classes.paper}>
           <form className='app__signUp' onSubmit={signIn}>
-            {/* <center> */}
             <img
               className='app__headerimage'
               alt='abc'
               src='https://i.ibb.co/kmrPzLL/Screen-Shot-2021-05-25-at-10-42-21-AM.png'
             ></img>
-            {/* </center> */}
             <Input
               type='email'
               placeholder='email'
@@ -172,7 +186,15 @@ function App() {
             <Button type='submit'>Sign In</Button>
           </form>
         </div>
-      </Modal>
+      </Modal> */}
+
+      <SignInModalComponenet
+        class_name='app__signIn'
+        submit={signIn}
+        text='Sign In'
+        isOpen={openSignIn}
+        onClose={handleCloseModal}
+      />
 
       <div className='app__header'>
         <img
@@ -184,7 +206,7 @@ function App() {
           <Button onClick={() => auth.signOut()}>Logout</Button>
         ) : (
           <div className='app__loginContainer'>
-            <Button onClick={() => setOpen(true)}>Sign Up</Button>
+            <Button onClick={() => setOpenSignUp(true)}>Sign Up</Button>
             <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
           </div>
         )}
@@ -217,14 +239,13 @@ function App() {
             onAfterRender={() => {}}
             onFailure={() => {}}
           />
-          {/* <h3>this is suppose to be an instagram embed</h3> */}
         </div>
       </div>
 
       {user?.displayName ? (
         <ImageUpload username={user.displayName} />
       ) : (
-        <h3>Sorry, you need to login to upload</h3>
+        <h3> Sorry, you need to login to upload</h3>
       )}
     </div>
   )
